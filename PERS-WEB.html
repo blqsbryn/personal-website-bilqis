@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nur Sabrina Bilqis — Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      color: #222;
+      line-height: 1.6;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Navigation */
+    nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      z-index: 100;
+    }
+    nav .nav-container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    nav .nav-container a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #555;
+      transition: color 0.3s;
+    }
+    nav .nav-container a:hover {
+      color: #0077ff;
+    }
+    .spacer { height: 70px; }
+
+    /* Hero Section */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      background: linear-gradient(135deg, #e3f2fd, #ffffff, #f0f7ff);
+      background-size: 400% 400%;
+      animation: gradientShift 12s ease infinite;
+      position: relative;
+    }
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #0077ff, #00c6ff, #0077ff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 4s linear infinite;
+    }
+    header p.subtitle {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    header p.contact {
+      font-size: 1rem;
+      color: #555;
+    }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 20px;
+      font-size: 1.5rem;
+      color: #0077ff;
+      animation: bounce 1.8s infinite;
+      cursor: pointer;
+    }
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(6px); }
+      60% { transform: translateY(3px); }
+    }
+
+    /* Profile */
+    .profile {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      padding: 60px 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .profile.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .profile img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 3px solid #0077ff;
+      box-shadow: 0 0 12px rgba(0,119,255,0.3);
+      object-fit: cover;     /* crop instead of shrink */
+      object-position: center;  /* focus on face */
+      margin-bottom: 20px;
+    }
+    .profile h3 {
+      font-size: 1.4rem;
+      color: #111;
+      margin-bottom: 8px;
+    }
+    .profile p {
+      color: #555;
+      font-size: 1rem;
+    }
+
+    /* Section Styling */
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 70px 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      color: #111;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .skill-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,119,255,0.2);
+    }
+
+    /* Simple List */
+    ul.simple-list {
+      list-style: none;
+      margin-top: 10px;
+      padding-left: 10px;
+    }
+    ul.simple-list li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 12px;
+    }
+    ul.simple-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #0077ff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+  <div class="spacer"></div>
+
+  <!-- Hero -->
+  <header id="hero">
+    <h1>Nur Sabrina Bilqis</h1>
+    <p class="subtitle">Creative Worker • IT Student</p>
+    <p class="contact">📞 0895-3832-66661 • 📧 blqsbryn@gmail.com</p>
+    <a href="#about" class="scroll-indicator">↓</a>
+  </header>
+
+  <!-- Profile -->
+  <section class="profile">
+    <!-- Replace with your cropped face photo file -->
+    <img src="profile.jpg" alt="Profile Photo">
+    <h3>Hello! I’m Sabrina</h3>
+    <p>
+      Passionate about multimedia, design, and technology.  
+      I create visual stories, manage content, and bring ideas to life through creativity and teamwork.
+    </p>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I am a Creative Worker and IT student at President University.  
+      Experienced in graphic design, social media management, photography, and video directing.  
+      I love learning new things, collaborating in teams, and growing through challenges.
+    </p>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-card">🎨 Graphic Design (Canva)</div>
+      <div class="skill-card">📱 Social Media Management</div>
+      <div class="skill-card">📷 Photography & Video Directing</div>
+      <div class="skill-card">✂️ Video Editing (Filmora, Capcut)</div>
+      <div class="skill-card">💻 Microsoft Office</div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <ul class="simple-list">
+      <li>Designed jackets & T-shirts for NKMC PINK 03 and Kultum Ramadhan 1446 H</li>
+      <li>Yearbook design project</li>
+      <li>Managed social media for Sinar Education, ZISWAF CTARSA, and Yayasan PINK 03</li>
+      <li>Creative content design for campaigns and events</li>
+      <li>Video directing and editing behind-the-scenes content</li>
+    </ul>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <ul class="simple-list">
+      <li>Sinar Education – Graphic Designer & Social Media (2024)</li>
+      <li>ZISWAF CTARSA – Graphic Designer (2024)</li>
+      <li>NKMC PINK 03 – Vice Chair, Secretary, Head of Graphic Design (2022-2025)</li>
+      <li>IPPNU Kabupaten Bekasi – Vice Secretary 4, Vice Chair 3 (2024-Present)</li>
+      <li>Brand Ambassador CHAI Indonesia – Media Creative (2024)</li>
+    </ul>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="simple-list">
+      <li>President University – Information Technology (2025 - Present)</li>
+      <li>MA PINK 03 – Science (2022 - 2025)</li>
+      <li>Madrasah Tsanawiyah YAPINK 01 (2019 - 2021)</li>
+      <li>MI YAPINK 01 (2013 - 2019)</li>
+      <li>Ar-Raudhah Islamic School (2021 - 2022)</li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>If you’d like to collaborate or just say hi, feel free to reach me:</p>
+    <p>📞 0895-3832-66661</p>
+    <p>📧 blqsbryn@gmail.com</p>
+  </section>
+
+  <footer>
+    © 2025 Nur Sabrina Bilqis. All rights reserved.
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const sections = document.querySelectorAll("section");
+    const reveal = () => {
+      const trigger = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < trigger) sec.classList.add("visible");
+      });
+    };
+    window.addEventListener("scroll", reveal);
+    window.addEventListener("load", reveal);
+  </script>
+
+</body>
+</html>
